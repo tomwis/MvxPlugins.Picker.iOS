@@ -82,32 +82,4 @@ namespace Mvx.Picker.iOS
             }
         }
     }
-
-    [Preserve(AllMembers = true)]
-    public class PluginLoader : MvvmCross.Platform.Plugins.IMvxPluginLoader
-    {
-        public static readonly PluginLoader Instance = new PluginLoader();
-
-        public void EnsureLoaded()
-        {
-            var manager = MvvmCross.Platform.Mvx.Resolve<MvvmCross.Platform.Plugins.IMvxPluginManager>();
-            manager.EnsurePlatformAdaptionLoaded<PluginLoader>();
-
-            MvvmCross.Platform.Mvx.CallbackWhenRegistered<MvvmCross.Binding.Bindings.Target.Construction.IMvxTargetBindingFactoryRegistry>(RegisterTargetBindings);
-        }
-
-        private void RegisterTargetBindings(IMvxTargetBindingFactoryRegistry registry)
-        {
-            registry.RegisterCustomBindingFactory<Picker>(MvxPickerSelectedItemBinding.PropertyName, view => new MvxPickerSelectedItemBinding(view));
-        }
-    }
-
-    [Preserve(AllMembers = true)]
-    public class Plugin : MvvmCross.Platform.Plugins.IMvxPlugin
-    {
-        public void Load()
-        {
-            //MvvmCross.Platform.Mvx.RegisterSingleton<Picker>(new Picker());
-        }
-    }
 }

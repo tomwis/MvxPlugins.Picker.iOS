@@ -6,6 +6,7 @@ using System.Text;
 using Foundation;
 using UIKit;
 using MvvmCross.Core.ViewModels;
+using MvxPlugins.Picker.iOS.Sample.Models;
 
 namespace MvxPlugins.Picker.iOS.Sample.ViewModels
 {

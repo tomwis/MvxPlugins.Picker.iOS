@@ -28,11 +28,5 @@ namespace MvxPlugins.Picker.iOS.Sample
         {
             return new DebugTrace();
         }
-
-        /*protected override void FillTargetFactories(IMvxTargetBindingFactoryRegistry registry)
-        {
-            registry.RegisterCustomBindingFactory<Picker>(MvxPickerSelectedItemBinding.PropertyName, view => new MvxPickerSelectedItemBinding(view));
-            base.FillTargetFactories(registry);
-        }*/
     }
 }

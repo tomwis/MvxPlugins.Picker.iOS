@@ -1,4 +1,4 @@
-﻿namespace MvxPlugins.Picker.iOS.Sample.ViewModels
+﻿namespace MvxPlugins.Picker.iOS.Sample.Models
 {
     public class PickerItem
     {

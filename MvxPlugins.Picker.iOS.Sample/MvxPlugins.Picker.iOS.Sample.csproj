@@ -95,7 +95,7 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="ViewModels\FirstViewModel.cs" />
-    <Compile Include="ViewModels\PickerItem.cs" />
+    <Compile Include="Models\PickerItem.cs" />
     <Compile Include="Views\FirstView.cs" />
     <None Include="GettingStarted.Xamarin" />
     <None Include="Info.plist" />

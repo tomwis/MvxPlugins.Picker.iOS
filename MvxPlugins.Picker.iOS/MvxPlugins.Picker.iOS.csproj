@@ -61,6 +61,7 @@
     <Compile Include="MvxPickerSelectedItemBinding.cs" />
     <Compile Include="MvxPickerViewModelExtended.cs" />
     <Compile Include="Picker.cs" />
+    <Compile Include="PickerDisplayContentType.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,14 +69,15 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <BundleResource Include="Resources\ic_keyboard_arrow_down_48pt.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_keyboard_arrow_down_48pt_2x.png" />
+    <BundleResource Include="Resources\ic_keyboard_arrow_down_48pt%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Resources\ic_keyboard_arrow_down_48pt_3x.png" />
+    <BundleResource Include="Resources\ic_keyboard_arrow_down_48pt%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

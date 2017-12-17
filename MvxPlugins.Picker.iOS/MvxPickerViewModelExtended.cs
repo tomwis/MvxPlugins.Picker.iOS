@@ -9,6 +9,7 @@ using MvvmCross.Binding.iOS.Views;
 using System.Windows.Input;
 using System.Collections;
 using System.Reflection;
+using CoreGraphics;
 
 namespace MvxPlugins.Picker.iOS
 {
@@ -18,6 +19,8 @@ namespace MvxPlugins.Picker.iOS
         public Picker Picker { get; }
         public string DisplayPropertyName { get; set; }
         public ICommand IconCommand { get; set; }
+        public PickerDisplayContentType ContentType { get; set; } = PickerDisplayContentType.Text;
+
         public MvxPickerViewModelExtended(Picker picker, UIPickerView pickerView) : base(pickerView)
         {
             Picker = picker;
@@ -30,8 +33,8 @@ namespace MvxPlugins.Picker.iOS
             get => base.ItemsSource;
             set
             {
-                base.ItemsSource = value;
                 _items = value?.Cast<object>()?.ToList();
+                base.ItemsSource = value;
             }
         }
 
@@ -65,6 +68,20 @@ namespace MvxPlugins.Picker.iOS
                 }
             }
             return currentProperty?.GetValue(currentItem)?.ToString();
+        }
+
+        public override UIView GetView(UIPickerView pickerView, nint row, nint component, UIView view)
+        {
+            if (ContentType == PickerDisplayContentType.Text)
+            {
+                return new UILabel { Text = GetTitleFromItem(_items[(int)row]), TextAlignment = UITextAlignment.Center };
+            }
+            else if (ContentType == PickerDisplayContentType.Image)
+            {
+                var filename = GetTitleFromItem(_items[(int)row]);
+                return new UIImageView(new CGRect(0, 0, 24, 24)) { Image = UIImage.FromBundle(filename)?.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate), ContentMode = UIViewContentMode.ScaleAspectFit };
+            }
+            return null;
         }
 
         protected override void Dispose(bool disposing)

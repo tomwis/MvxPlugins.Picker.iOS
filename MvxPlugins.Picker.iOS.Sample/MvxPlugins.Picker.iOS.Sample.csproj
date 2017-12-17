@@ -98,7 +98,9 @@
     <Compile Include="Models\PickerItem.cs" />
     <Compile Include="Views\FirstView.cs" />
     <None Include="GettingStarted.Xamarin" />
-    <None Include="Info.plist" />
+    <None Include="Info.plist">
+      <SubType>Designer</SubType>
+    </None>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -138,6 +140,12 @@
   <ItemGroup>
     <Content Include="AppDelegate.cs.txt" />
     <Content Include="Entitlements.plist" />
+    <BundleResource Include="Resources\ic_alarm_on.png" />
+    <BundleResource Include="Resources\ic_alarm_on%402x.png" />
+    <BundleResource Include="Resources\ic_alarm_on%403x.png" />
+    <BundleResource Include="Resources\ic_alarm_off.png" />
+    <BundleResource Include="Resources\ic_alarm_off%402x.png" />
+    <BundleResource Include="Resources\ic_alarm_off%403x.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MvxPlugins.Picker.iOS\MvxPlugins.Picker.iOS.csproj">
@@ -146,6 +154,32 @@
       <IsAppExtension>false</IsAppExtension>
       <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Resources\Assets.xcassets\AlarmAddIcon.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\AlarmAddIcon.imageset\ic_alarm_add.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\AlarmAddIcon.imageset\ic_alarm_add_2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\AlarmAddIcon.imageset\ic_alarm_add_3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\AlarmIcon.imageset\Contents.json">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\AlarmIcon.imageset\ic_alarm.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\AlarmIcon.imageset\ic_alarm_2x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
+    <ImageAsset Include="Resources\Assets.xcassets\AlarmIcon.imageset\ic_alarm_3x.png">
+      <Visible>false</Visible>
+    </ImageAsset>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

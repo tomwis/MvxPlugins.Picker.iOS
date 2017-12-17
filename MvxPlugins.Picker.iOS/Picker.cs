@@ -1,36 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Foundation;
 using UIKit;
 using System.Windows.Input;
 using CoreGraphics;
-using MvvmCross.Binding.Bindings.Target.Construction;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace MvxPlugins.Picker.iOS
 {
     [Preserve(AllMembers = true)]
     public class Picker : UITextField
     {
+        UIToolbar _toolbar;
+
         public UIPickerView PickerView { get; set; }
         public MvxPickerViewModelExtended PickerViewModel { get; set; }
         public ICommand ItemIconCommand { get => PickerViewModel.IconCommand; set => PickerViewModel.IconCommand = value; }
-        public System.Collections.IEnumerable ItemsSource { get => PickerViewModel.ItemsSource; set => PickerViewModel.ItemsSource = value; }
+        public IEnumerable ItemsSource { get => PickerViewModel.ItemsSource; set => PickerViewModel.ItemsSource = value; }
+        public PickerDisplayContentType ContentType { get => PickerViewModel.ContentType; set => PickerViewModel.ContentType = value; }
+        public CGSize ContentImageSize { get; set; } = new CGSize(32, 32);
+        public UIControlContentHorizontalAlignment ContentImageAlignment { get; set; } = UIControlContentHorizontalAlignment.Left;
+
         public event EventHandler<object> SelectedItemChanged;
-        UIBarButtonItem _doneButton;
-        public string DoneButtonTitle { get => _doneButton.Title; set => _doneButton.Title = value; }
         public object SelectedItem
         {
             get => PickerViewModel.SelectedItem;
             set
             {
                 PickerViewModel.SelectedItem = value;
-                Text = PickerViewModel.GetTitleFromItem(value);
+
+                var title = PickerViewModel.GetTitleFromItem(value);
+                if (ContentType == PickerDisplayContentType.Text)
+                {
+                    Text = title;
+                    LeftViewMode = UITextFieldViewMode.Never;
+                }
+                else
+                {
+                    LeftView = new UIImageView(new CGRect(0, 0, ContentImageSize.Width, ContentImageSize.Height))
+                    {
+                        Image = UIImage.FromBundle(title)?.ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate),
+                        ContentMode = 
+                        (ContentImageAlignment == UIControlContentHorizontalAlignment.Center || ContentImageAlignment == UIControlContentHorizontalAlignment.Fill ? UIViewContentMode.Center : 
+                        (ContentImageAlignment == UIControlContentHorizontalAlignment.Leading || ContentImageAlignment == UIControlContentHorizontalAlignment.Left ? UIViewContentMode.Left : UIViewContentMode.Right))
+                    };
+                    LeftViewMode = UITextFieldViewMode.Always;
+                }
+
                 SelectedItemChanged?.Invoke(this, value);
             }
         }
+
         public string DisplayPropertyName
         {
             get => PickerViewModel.DisplayPropertyName;
@@ -44,20 +64,19 @@ namespace MvxPlugins.Picker.iOS
             PickerView.Model = PickerViewModel;
             PickerView.ShowSelectionIndicator = true;
 
-            var toolbar = new UIToolbar();
-            toolbar.SizeToFit();
-            _doneButton = new UIBarButtonItem("Done", UIBarButtonItemStyle.Plain, OnDone);
-            toolbar.SetItems(new[]
+            _toolbar = new UIToolbar();
+            _toolbar.SizeToFit();
+            _toolbar.SetItems(new[]
             {
                 new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-                _doneButton
+                new UIBarButtonItem(UIBarButtonSystemItem.Done, OnDone)
             }, false);
-            toolbar.UserInteractionEnabled = true;
+            _toolbar.UserInteractionEnabled = true;
 
             InputView = PickerView;
-            InputAccessoryView = toolbar;
+            InputAccessoryView = _toolbar;
             Delegate = new PickerTextFieldDelegate();
-            RightView = new UIImageView(UIImage.FromFile("ic_keyboard_arrow_down_48pt.png").ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)) { Frame = new CoreGraphics.CGRect(0, 0, 24, 24) };
+            RightView = new UIImageView(UIImage.FromFile("ic_keyboard_arrow_down_48pt.png").ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)) { Frame = new CGRect(0, 0, 24, 24) };
             RightViewMode = UITextFieldViewMode.Always;
             TintColor = UIColor.Black;
         }
@@ -67,10 +86,29 @@ namespace MvxPlugins.Picker.iOS
             ResignFirstResponder();
         }
 
+        public void AddButtonToToolbar(UIBarButtonItem item)
+        {
+            var items = new List<UIBarButtonItem>(_toolbar.Items);
+            items.Insert(1, new UIBarButtonItem(UIBarButtonSystemItem.FixedSpace) { Width = 12 }); // We need some spacing, because there is none on iOS <= 10
+            items.Insert(1, item);
+            _toolbar.SetItems(items.ToArray(), true);
+        }
+
         // To hide caret at cursor's current position in text view
         public override CGRect GetCaretRectForPosition(UITextPosition position)
         {
             return CGRect.Empty;
+        }
+
+        // When we show image content instead of text we want it to take all space except for RigthView width
+        public override CGRect LeftViewRect(CGRect forBounds)
+        {
+            var rect = base.LeftViewRect(forBounds);
+            if (ContentImageAlignment == UIControlContentHorizontalAlignment.Left || ContentImageAlignment == UIControlContentHorizontalAlignment.Leading)
+            {
+                return rect;
+            }
+            return new CGRect(0, 0, forBounds.Width - RightView.Bounds.Width, forBounds.Height);
         }
 
         private class PickerTextFieldDelegate : UITextFieldDelegate

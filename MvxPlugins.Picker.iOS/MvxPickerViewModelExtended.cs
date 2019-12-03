@@ -5,11 +5,11 @@ using System.Text;
 
 using Foundation;
 using UIKit;
-using MvvmCross.Binding.iOS.Views;
 using System.Windows.Input;
 using System.Collections;
 using System.Reflection;
 using CoreGraphics;
+using MvvmCross.Platforms.Ios.Binding.Views;
 
 namespace MvxPlugins.Picker.iOS
 {

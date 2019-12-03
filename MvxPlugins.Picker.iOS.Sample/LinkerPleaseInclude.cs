@@ -2,7 +2,7 @@ using System.Collections.Specialized;
 using System.Windows.Input;
 using Foundation;
 using MvvmCross.Binding.BindingContext;
-using MvvmCross.iOS.Views;
+using MvvmCross.Platforms.Ios.Views;
 using UIKit;
 
 namespace MvxPlugins.Picker.iOS.Sample
@@ -103,11 +103,6 @@ namespace MvxPlugins.Picker.iOS.Sample
         {
            command.CanExecuteChanged += (s, e) => { if (command.CanExecute(null)) command.Execute(null); };
         }
-
-        public void Include(MvvmCross.Platform.IoC.MvxPropertyInjector injector)
-        {
-            injector = new MvvmCross.Platform.IoC.MvxPropertyInjector();
-        } 
 
         public void Include(System.ComponentModel.INotifyPropertyChanged changed)
         {

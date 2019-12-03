@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Foundation;
-using UIKit;
-using MvvmCross.Core.ViewModels;
 using MvxPlugins.Picker.iOS.Sample.Models;
+using MvvmCross.ViewModels;
 
 namespace MvxPlugins.Picker.iOS.Sample.ViewModels
 {

@@ -76,7 +76,16 @@ namespace MvxPlugins.Picker.iOS
             InputView = PickerView;
             InputAccessoryView = _toolbar;
             Delegate = new PickerTextFieldDelegate();
-            RightView = new UIImageView(UIImage.FromFile("ic_keyboard_arrow_down_48pt.png").ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)) { Frame = new CGRect(0, 0, 24, 24) };
+
+            CGRect rightViewFrame = new CGRect(0, 0, 24, 24);
+            var rightView = new UIView(rightViewFrame);
+            rightView.Add(
+                new UIImageView(UIImage.FromFile("ic_keyboard_arrow_down_48pt.png")
+                .ImageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate))
+                {
+                    Frame = rightViewFrame
+                });
+            RightView = rightView;
             RightViewMode = UITextFieldViewMode.Always;
             TintColor = UIColor.Black;
         }

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NuGet.Build.Packaging.0.2.5-dev.8\build\NuGet.Build.Packaging.props" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.5-dev.8\build\NuGet.Build.Packaging.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -11,6 +12,14 @@
     <RootNamespace>MvxPlugins.Picker.iOS</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>MvxPlugins.Picker.iOS</AssemblyName>
+    <PackageId>MvxPlugins.Picker.iOS</PackageId>
+    <PackageVersion>1.2</PackageVersion>
+    <Authors>Tomasz Wiśniewski</Authors>
+    <PackageLicenseUrl>https://github.com/tomwis/MvxPlugins.Picker.iOS/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/tomwis/MvxPlugins.Picker.iOS</PackageProjectUrl>
+    <PackageTags>mvvm mvvmcross xamarin monotouch xamarin.ios picker dropdown combobox mvx</PackageTags>
+    <Title>Xamarin.iOS Picker (MvvmCross plugin)</Title>
+    <Description>This package contains picker control for Xamarin.iOS for MvvmCross.</Description>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -63,4 +72,5 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <Import Project="..\packages\NuGet.Build.Packaging.0.2.5-dev.8\build\NuGet.Build.Packaging.targets" Condition="Exists('..\packages\NuGet.Build.Packaging.0.2.5-dev.8\build\NuGet.Build.Packaging.targets')" />
 </Project>

@@ -1,7 +1,9 @@
 # What is it?
 It is a picker for Xamarin.iOS for MvvmCross. It is using UITextField to display selected item and UIPickerView in UITextField's InputView (where the keybaord is) as a picker.
 
-It was tested with MvvmCross 4.4 and 5.6.2. If you have issues with other versions, let me know.
+Works with:
+- MvvmCross >= 6.2 (version 1.2 of the plugin)
+- MvvmCross >= 4.4 to < 6 (versions below 1.2)
 
 # Download
 Link to nuget: https://www.nuget.org/packages/MvxPlugins.Picker.iOS
